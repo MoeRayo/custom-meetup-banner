@@ -1,45 +1,53 @@
 <template>
-  <div class="bg-washed-yellow vh-100">
+  <div class="bg-washed-yellow h-100">
     <header class="tc pv3 pv3-ns">
       <h1 class="mt2 mb0 baskerville i fw1 f2-ns f3 mid-gray ">Custom Meetup Banner Generator</h1>
     </header>
-    <section class="ph5">
-      <h2 class="baskerville fw1 f4-ns f3">Select an image</h2>
+    <section class="ph5 flex flex-wrap justify-between">
+      <div class="w-100 w-50-ns">
+        <h2 class="baskerville fw1 f4-ns f3">Select an image</h2>
 
-      <div v-for="banner in banners" :key="banner.id" class="fl-ns db tc pa1 grow aspect-ratio--4x6" :class="banner.id === imageId ? 'ba bw2 b--green ' : ''" @click="selectImage(banner.id, banner.publicId)">
-        <cld-image :public-id="banner.publicId" crop="scale" width="150" height="100"></cld-image>
-      </div>
-
-      <p v-if="formData.imageError" class="cb red fw3 i f7">Please select an image</p>
-
-      <div class="mv4 cb">
-        <div class="mb3 w-34">
-          <label class="mb1 ttc f7 db" for="title">Title</label>
-          <input id="title" v-model="formData.title" type="text" name="title" class="db w-100 pv3 ph2 br2 ba b--black-40 f7" required>
+        <div v-for="banner in banners" :key="banner.id" class="fl-ns db tc pa1 grow aspect-ratio--4x6" :class="banner.id === imageId ? 'ba bw2 b--green ' : ''" @click="selectImage(banner.id, banner.publicId)">
+          <cld-image :public-id="banner.publicId" crop="scale" width="150" height="100"></cld-image>
         </div>
-        <div class="mb3 w-34">
-          <label class="mb1 ttc f7 db" for="event-detail">event Detail</label>
-          <textarea id="event-detail" v-model="formData.eventDetail" name="event-detail" class="db w-100 resize h3 ph2 pv3 f7 br2 ba b--black-40" required></textarea>
-        </div>
-        <div class=" w-34">
-          <label class="mb1 ttc f7 db" for="speakers">Speakers</label>
-          <textarea id="speakers" v-model="formData.speaker" name="speakers" class="db w-100 resize h3 ph2 pv3 f7 br2 ba b--black-40" required></textarea>
-          <p v-if="formData.error" class="mt2 mb4 red fw3 i f7">Please fill all required fileds</p>
-        </div>
-      </div>
-      <button class="f6 link dim br2 ph3 pv2 mb2 dib white bg-dark-green ba b--green" @click="handleSubmit">Generate Banner</button>
 
-      <div v-if="showCard" class="mt-10">
-        <GeneratedBanner
-          :title="formData.title"
-          :description="formData.eventDetail"
-          :speakers="formData.speaker"
-          :publicId="formData.publicId"
-        />
+        <p v-if="formData.imageError" class="cb red fw3 i f7">Please fill the required fields</p>
+
+        <div class="mv4 cb">
+          <div class="mb3 w-90">
+            <label class="mb1 ttc f7 db" for="title">Title</label>
+            <input id="title" v-model="formData.title" type="text" name="title" class="db w-100 pv3 ph2 br2 ba b--black-40 f7" required>
+          </div>
+          <div class="mb3 w-90">
+            <label class="mb1 ttc f7 db" for="event-detail">event Detail</label>
+            <textarea id="event-detail" v-model="formData.eventDetail" name="event-detail" class="db w-100 resize h3 ph2 pv3 f7 br2 ba b--black-40" required></textarea>
+          </div>
+          <div class=" w-90">
+            <label class="mb1 ttc f7 db" for="speakers">Speakers</label>
+            <textarea id="speakers" v-model="formData.speaker" name="speakers" class="db w-100 resize h3 ph2 pv3 f7 br2 ba b--black-40" required></textarea>
+            <p v-if="formData.error" class="mt2 mb4 red fw3 i f7">Please fill all required fileds</p>
+          </div>
+        </div>
+
+        <button class="f6 link dim br2 ph3 pv2 mb2 dib white bg-dark-green ba b--green" @click="handleSubmit">Generate Banner</button>
+
       </div>
+      <div class="bg-yellow w-100 w-50-ns pa3">
+        <h2 class="baskerville fw1 f4-ns f3 underline">Result</h2>
+
+        <div v-if="showCard" class="mt-10">
+          <GeneratedBanner
+            :title="formData.title"
+            :description="formData.eventDetail"
+            :speakers="formData.speaker"
+            :publicId="formData.publicId"
+          />
+        </div>
+
+      </div>
+      
     </section>
   </div>
-
 </template>
 
 <script>
