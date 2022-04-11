@@ -56,7 +56,7 @@ export default {
       navigator.clipboard
       .writeText(this.url)
       .then(() => (this.copy = 'Copied!'))
-      .catch((err) => console.log('error copying to clipboard', err))
+      .catch((err) => err)
     }
   },
   
