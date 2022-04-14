@@ -14,9 +14,9 @@
     </cld-image>
 
     <div class="mv4">
-      <label class="db mb2 f3 fw4 b">Copiable link</label>
+      <label class="db mb2 f3 fw4 b">Shareable link</label>
       <input disabled type="text" class="db w-90 pv3 ph2 br2 ba b--black-40 f7" :value="url" />
-      <button class="f6 link dim br2 ph3 pv2 db white bg-dark-green ba b--green mt2" @click="handleCopy">{{copy}}</button>
+      <button class="f6 link dim br2 ph3 pv2 db white bg-dark-green ba b--green mt2" @click="copyUrl">{{share}}</button>
     </div>
   </div>
 </template>
@@ -43,7 +43,7 @@ export default {
  data() {
     return {
       url: "",
-      copy: 'Copy Link'
+      share: 'Share Link'
     };
   },
   mounted() {
@@ -52,10 +52,10 @@ export default {
     });
   },
   methods: {
-    handleCopy(){
+    copyUrl(){
       navigator.clipboard
       .writeText(this.url)
-      .then(() => (this.copy = 'Copied!'))
+      .then(() => (this.share = 'Copied!'))
       .catch((err) => err)
     }
   },

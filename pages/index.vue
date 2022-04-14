@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-washed-yellow h-100">
+  <div class="bg-washed-yellow vh-100">
     <header class="tc pv3 pv3-ns">
-      <h1 class="mt2 mb0 baskerville i fw1 f2-ns f3 mid-gray ">Custom Meetup Banner Generator</h1>
+      <h1 class="tl ph5 mt2 mb0 baskerville i fw1 f2-ns f3 mid-gray ">Custom Meetup Banner Generator</h1>
     </header>
     <section class="ph5 flex flex-wrap justify-between">
       <div class="w-100 w-50-ns">
@@ -11,7 +11,7 @@
           <cld-image :public-id="banner.publicId" crop="scale" width="150" height="100"></cld-image>
         </div>
 
-        <p v-if="formData.imageError" class="cb red fw3 i f7">Please fill the required fields</p>
+        <p v-if="formData.error" class="cb red fw3 i f7">Please fill the required fields</p>
 
         <div class="mv4 cb">
           <div class="mb3 w-90">
@@ -25,17 +25,15 @@
           <div class=" w-90">
             <label class="mb1 ttc f7 db" for="speakers">Speakers</label>
             <textarea id="speakers" v-model="formData.speaker" name="speakers" class="db w-100 resize h3 ph2 pv3 f7 br2 ba b--black-40" required></textarea>
-            <p v-if="formData.error" class="mt2 mb4 red fw3 i f7">Please fill all required fileds</p>
           </div>
         </div>
 
-        <button class="f6 link dim br2 ph3 pv2 mb2 dib white bg-dark-green ba b--green" @click="handleSubmit">Generate Banner</button>
-
+        <button class="f6 link dim br2 ph3 pv2 mb2 dib white bg-dark-green ba b--green pointer" @click="handleSubmit">Generate Banner</button>
       </div>
-      <div class="bg-yellow w-100 w-50-ns pa3">
+      <div class="w-100 w-50-ns pa3">
         <h2 class="baskerville fw1 f4-ns f3 underline">Result</h2>
 
-        <div v-if="showCard" class="mt-10">
+        <div v-if="showBanner" class="mt-10">
           <GeneratedBanner
             :title="formData.title"
             :description="formData.eventDetail"
@@ -58,11 +56,10 @@
       return {
         banners,
         imageId: null,
-        showCard: false,
+        showBanner: false,
         formData: {
           publicId: null,
           error: false,
-          imageError: false,
           title: '',
           eventDetail: '',
           speaker: ''
@@ -75,13 +72,13 @@
       this.imageId = imageId
       this.formData.publicId = publicId
       this.formData.error = false
-      this.showCard = false
+      this.showBanner = false
     },
     handleSubmit() {
       if (!this.imageId || (this.formData.title === ''|| this.formData.speaker === '')) {
-        this.formData.imageError = true
+        this.formData.error = true
       } else {
-        this.showCard = true 
+        this.showBanner = true 
       }
     },
   }
